@@ -37,6 +37,16 @@ with open(CSV_PATH, encoding='UTF-8') as csvfile:
 #Initialize variable for total_change: 
     total_change = 0
 
+#Initialize variable for greatest_increase:
+    greatest_increase = 0
+
+#Initialize variable for greatest_decrease:
+    greatest_decrease = 0
+
+#Initialize variable for month of greatest increase and decrease:
+    increase_month = ''
+    decrease_month = ''
+
 #set loop that goes through each row in csvreader
     for row in csvreader:
 #add 1 to counter as it loops through the file
@@ -52,8 +62,20 @@ with open(CSV_PATH, encoding='UTF-8') as csvfile:
         else: 
             profit_change = current_profit - previous_profit
             total_change += profit_change
+            if profit_change > greatest_increase:
+                greatest_increase = profit_change
+                increase_month = row[0]
+            if profit_change < greatest_decrease:
+                greatest_decrease = profit_change
+                decrease_month = row[0]
+
 #saving current_profit as previous_profit for next loop 
-        previous_profit = current_profit   
+        previous_profit = current_profit
+
+
+
+#calculate average change
+average_change = round(total_change/(month_count - 1),2)
 
 #print title to terminal
 print("Financial Analysis")
@@ -61,8 +83,8 @@ print("------------------")
 #print final monthcount to terminal
 print(f'Total Months: {month_count}')
 print(f'Total: ${profit_loss_total}')
-print(f'Average Change: ${round(total_change/(month_count - 1),2)}')
- 
+print(f'Average Change: ${average_change}')
+print(f'Greatest Increase in Profits: {increase_month} (${greatest_increase})')
+print(f'Greatest Decrease in Profits: {decrease_month} (${greatest_decrease})')
         
-
 
