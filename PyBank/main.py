@@ -87,4 +87,20 @@ print(f'Average Change: ${average_change}')
 print(f'Greatest Increase in Profits: {increase_month} (${greatest_increase})')
 print(f'Greatest Decrease in Profits: {decrease_month} (${greatest_decrease})')
         
+# Set variable for output file
+output_file = os.path.join("budget_data.txt")
+
+#  Open the output file
+f = open("pybank_text.txt", "w")
+    # Write the header row
+f.write('Financial Analysis\n')
+f.write("------------------\n")
+#print final monthcount to terminal
+f.write(f'Total Months: {month_count}\n')
+f.write(f'Total: ${profit_loss_total}\n')
+f.write(f'Average Change: ${average_change}\n')
+f.write(f'Greatest Increase in Profits: {increase_month} (${greatest_increase})\n')
+f.write(f'Greatest Decrease in Profits: {decrease_month} (${greatest_decrease})\n')
+            
+f.close()
 
