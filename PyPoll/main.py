@@ -14,8 +14,16 @@ vote_count = 0
 #initialize the variable for candidate name and set to empty string
 candidate_name = ""
 
-#initialize a list to hold every unique candidate name
-candidates = []
+#initialize a dictionary to hold candidate names and vote counts
+candidate_dict = {}
+
+#initialize a variable for winning candidate
+
+winner = ""
+
+#initialize a variable for maximum votes 
+
+max_votes = 0
 
 # open the CSV using the UTF-8 encoding
 with open(CSV_PATH, encoding='UTF-8') as csvfile:
@@ -23,37 +31,46 @@ with open(CSV_PATH, encoding='UTF-8') as csvfile:
 
  # read the header row and set the csv reader to the next row 
    csv_header = next(csvreader)
-   print(f"CSV Header: {csv_header}")
 
 #set loop that goes through each row in csvreader
    for row in csvreader:
-#add 1 to counter as it loops through the file
-      vote_count += 1      
+      #add 1 to counter as it loops through the file
+      vote_count += 1   
       if candidate_name != row[2]:
-         candidate_name = row[2] 
-         if candidate_name not in candidates:
-            candidates.append(candidate_name)
-         
-print(candidates)
+         candidate_name = row[2]
+         if candidate_name not in candidate_dict.keys():
+# a dictionary to hold candidate names and votes 
+            candidate_dict[candidate_name] = 0
+      candidate_dict.update({candidate_name: candidate_dict[candidate_name] + 1})
 
-         
+for candidate, votes in candidate_dict.items():
+   print(candidate, "received ", votes, "votes.")
 
+   if votes > max_votes:
+      max_votes = votes
+      winner = candidate
    
-
-#1. read the file (existing loop) and save the names of the candidates (list or dict)
-#   - declare a variable for the current name and set to empty string.
-#   - when the candidate name changes in the file, make that the current name and save it.
-#   - print the result
-  
-
-
-
-
 #print title to terminal
 print("Election Results")
 print("------------------")
 #print final monthcount to terminal
 print(f'Total Votes: {vote_count}')
+for candidate, votes in candidate_dict.items():
+   print(candidate,":", "{:.2%}".format(votes/vote_count), "(",votes, ")" )
+print("Winner:", winner)
 print("------------------")
 
 
+#  Open the output file
+f = open("analysis/pypoll_text.txt", "w")
+    # Write the header row
+f.write("Election Results\n")
+f.write("------------------\n")
+f.write(f'Total Votes: {vote_count}\n')
+for candidate, votes in candidate_dict.items():
+   f.write(candidate + ": "+ "{:.2%}".format(votes/vote_count)+ " ("+str(votes)+ ")\n")
+f.write("Winner: " + winner + '\n')
+f.write("------------------\n")
+
+
+f.close()
