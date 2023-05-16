@@ -86,12 +86,9 @@ print(f'Total: ${profit_loss_total}')
 print(f'Average Change: ${average_change}')
 print(f'Greatest Increase in Profits: {increase_month} (${greatest_increase})')
 print(f'Greatest Decrease in Profits: {decrease_month} (${greatest_decrease})')
-        
-# Set variable for output file
-output_file = os.path.join("budget_data.txt")
 
 #  Open the output file
-f = open("pybank_text.txt", "w")
+f = open("analysis/pybank_text.txt", "w")
     # Write the header row
 f.write('Financial Analysis\n')
 f.write("------------------\n")
