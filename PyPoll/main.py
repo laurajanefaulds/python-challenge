@@ -2,7 +2,7 @@
 import csv
 import os
 
-#locating specific csv file and storing it in a constant
+#locate specific csv file and storing it in a constant
 CSV_PATH = os.path.join("resources", "election_data.csv")
 
 #set the current working directory to the folder of the csv file
@@ -39,13 +39,11 @@ with open(CSV_PATH, encoding='UTF-8') as csvfile:
       if candidate_name != row[2]:
          candidate_name = row[2]
          if candidate_name not in candidate_dict.keys():
-# a dictionary to hold candidate names and votes 
+# create a dictionary to hold candidate names and votes 
             candidate_dict[candidate_name] = 0
       candidate_dict.update({candidate_name: candidate_dict[candidate_name] + 1})
 
-for candidate, votes in candidate_dict.items():
-   print(candidate, "received ", votes, "votes.")
-
+#set election winner
    if votes > max_votes:
       max_votes = votes
       winner = candidate
@@ -53,10 +51,12 @@ for candidate, votes in candidate_dict.items():
 #print title to terminal
 print("Election Results")
 print("------------------")
-#print final monthcount to terminal
+#print final votecount to terminal
 print(f'Total Votes: {vote_count}')
+#print candidate, percentage of votes and vote count to terminal 
 for candidate, votes in candidate_dict.items():
    print(candidate,":", "{:.2%}".format(votes/vote_count), "(",votes, ")" )
+#print winner to terminal 
 print("Winner:", winner)
 print("------------------")
 
