@@ -43,6 +43,10 @@ with open(CSV_PATH, encoding='UTF-8') as csvfile:
             candidate_dict[candidate_name] = 0
       candidate_dict.update({candidate_name: candidate_dict[candidate_name] + 1})
 
+#print candidate, percentage of votes and vote count to terminal 
+for candidate, votes in candidate_dict.items():
+   print(candidate,":", "{:.2%}".format(votes/vote_count), "(",votes, ")" )
+
 #set election winner
    if votes > max_votes:
       max_votes = votes
